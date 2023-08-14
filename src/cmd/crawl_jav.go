@@ -101,6 +101,7 @@ var javStarCodeCmd = &cli.Command{
 		javSiteFlag,
 		javOutputFlag,
 		javProxyFlag,
+		javMagnetFlag,
 	},
 	Action: func(c *cli.Context) error {
 		return nil
@@ -114,6 +115,7 @@ var javStarCodeFromDirCmd = &cli.Command{
 		javSiteFlag,
 		javOutputFlag,
 		javProxyFlag,
+		javMagnetFlag,
 		&cli.StringFlag{Name: "input", Required: true},
 	},
 	Action: func(c *cli.Context) error {
