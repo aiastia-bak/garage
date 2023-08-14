@@ -101,12 +101,34 @@ var javStarCodeCmd = &cli.Command{
 		javSiteFlag,
 		javOutputFlag,
 		javProxyFlag,
-		javMagnetFlag,
+		&cli.StringFlag{
+			Name:     "actor-id",
+			Usage:    "演员ID",
+			Required: true,
+		},
 	},
 	Action: func(c *cli.Context) error {
+		var logger = utils.GetLogger()
+
+		client, err := crawl.NewCrawlClient(logger, crawl.CrawlOptions{
+			Proxy:    c.String("proxy"),
+			DestPath: c.String("output"),
+		})
+		if err != nil {
+			logger.Panic("client init error: " + err.Error())
+			return err
+		}
+
+		actorID := c.String("actor-id")
+		if err := client.StartCrawlJavbusMovieByActorID(actorID, c.String("site")); err != nil {
+			logger.Panic("crawl error: " + err.Error())
+			return err
+		}
+
 		return nil
 	},
 }
+
 
 var javStarCodeFromDirCmd = &cli.Command{
 	Name:  "jav-code-from-dir",
