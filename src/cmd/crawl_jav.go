@@ -122,6 +122,7 @@ var javStarCodeFromDirCmd = &cli.Command{
 		var logger = utils.GetLogger()
 
 		client, err := crawl.NewCrawlClient(logger, crawl.CrawlOptions{
+			DownloadMagent: ctx.Bool("magnet"),
 			Proxy:    c.String("proxy"),
 			DestPath: c.String("output"),
 		})
